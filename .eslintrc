@@ -1,0 +1,34 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier", "react"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "globals": {},
+  "rules": {
+    "no-console": 0,
+    // Added exception for the _ argument
+    "no-unused-vars": [1, { "argsIgnorePattern": "^_$" }],
+    "linebreak-style": "off",
+    // Anchor tag rule adjusted to stop errors on React Router Link tags
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to"]
+      }
+    ],
+    // Track for video requirement disabled as unnecessary on Kiosk
+    "jsx-a11y/media-has-caption": 0
+  }
+}
