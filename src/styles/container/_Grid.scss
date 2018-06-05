@@ -1,0 +1,32 @@
+.Grid {
+    display: grid;
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+.Grid_child {
+    position: relative;
+    font-size: 2.4rem;
+    overflow: hidden;
+}
+
+.Grid_child {
+    background-color: aliceblue;
+}
+.Grid_shadow_child {
+    background-color: tomato;
+}
+
+.Grid_child.panmove {
+    opacity: 0.5;
+}
+
+.Grid_child {
+    width: 100%;
+    height: 100%;
+}
+
+.Grid_shadow, .Grid_shadow > * {
+    pointer-events: none;
+}
