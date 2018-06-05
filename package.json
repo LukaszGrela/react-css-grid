@@ -3,14 +3,15 @@
   "version": "0.0.5",
   "description": "Test app to use CSS Grid",
   "main": "index.js",
-  "scripts": {
-    "build": "set NODE_ENV=production && webpack",
-    "build-dev": "set NODE_ENV=development && webpack",
-    "dev-server": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Lukasz 'Severiaan' Grela",
   "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build:prod": "webpack -p --env production",
+    "build:dev": "webpack --env development",
+    "server:dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
@@ -30,6 +31,7 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.10.2"
