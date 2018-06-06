@@ -6,10 +6,7 @@ class DragDiv extends React.Component {
   state = {
     panState: ""
   };
-  // constructor(props) {
-  //   super(props);
-  //   console.log(props);
-  // }
+  
   componentDidMount = () => {
     this.hammer = new Hammer(this._ref);
     this.hammer.get("pan").set({ direction: this.props.direction });
