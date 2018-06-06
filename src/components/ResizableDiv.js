@@ -7,24 +7,24 @@ class ResizableDiv extends React.Component {
   onPanStart = id => {
     this.props.onPanStart(this.props.id);
   };
-  onPan = (id, cx, cy, dx, dy) => {
-    this.props.onPan(this.props.id, cx, cy, dx, dy);
+  onPan = (id, cx, cy, ox, oy) => {
+    this.props.onPan(this.props.id, cx, cy, ox, oy);
   };
-  onPanStop = (id, cx, cy, dx, dy) => {
-    this.props.onPanStop(this.props.id, cx, cy, dx, dy);
+  onPanStop = (id, cx, cy, ox, oy) => {
+    this.props.onPanStop(this.props.id, cx, cy, ox, oy);
   };
-  onResize = (handle, cx, cy, dx, dy) => {
-    this.props.onResize(this.props.id, handle, cx, cy);
+  onResize = (handle, cx, cy, ox, oy) => {
+    this.props.onResize(this.props.id, handle, cx, cy, ox, oy);
   };
-  onResizeStop = (handle, cx, cy, dx, dy) => {
-    this.props.onResizeStop(this.props.id, handle, cx, cy);
+  onResizeStop = (handle, cx, cy, ox, oy) => {
+    this.props.onResizeStop(this.props.id, handle, cx, cy, ox, oy);
   };
   render = () => {
     const { style, className, id } = this.props;
     return (
       <div style={style} className={`${className}`}>
         <DragDiv
-          id={'pan'}
+          id={"pan"}
           direction={Hammer.DIRECTION_ALL}
           className={"ResizableDiv_handle ResizableDiv_handle--pan"}
           onPan={this.onPan}
@@ -32,28 +32,28 @@ class ResizableDiv extends React.Component {
           onPanStop={this.onPanStop}
         />
         <DragDiv
-          id={'tl'}
+          id={"tl"}
           direction={Hammer.DIRECTION_ALL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
           className={"ResizableDiv_handle ResizableDiv_handle--tl"}
         />
         <DragDiv
-          id={'tr'}
+          id={"tr"}
           direction={Hammer.DIRECTION_ALL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
           className={"ResizableDiv_handle ResizableDiv_handle--tr"}
         />
         <DragDiv
-          id={'bl'}
+          id={"bl"}
           direction={Hammer.DIRECTION_ALL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
           className={"ResizableDiv_handle ResizableDiv_handle--bl"}
         />
         <DragDiv
-          id={'br'}
+          id={"br"}
           direction={Hammer.DIRECTION_ALL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
@@ -61,14 +61,14 @@ class ResizableDiv extends React.Component {
         />
 
         <DragDiv
-          id={'top'}
+          id={"top"}
           direction={Hammer.DIRECTION_VERTICAL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
           className={"ResizableDiv_handle ResizableDiv_handle--top"}
         />
         <DragDiv
-          id={'bottom'}
+          id={"bottom"}
           direction={Hammer.DIRECTION_VERTICAL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
@@ -76,7 +76,7 @@ class ResizableDiv extends React.Component {
         />
 
         <DragDiv
-          id={'right'}
+          id={"right"}
           direction={Hammer.DIRECTION_HORIZONTAL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
@@ -84,7 +84,7 @@ class ResizableDiv extends React.Component {
           className={"ResizableDiv_handle ResizableDiv_handle--right"}
         />
         <DragDiv
-          id={'left'}
+          id={"left"}
           direction={Hammer.DIRECTION_HORIZONTAL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
