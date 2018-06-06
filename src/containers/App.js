@@ -166,12 +166,15 @@ class App extends React.Component {
       ]
     }));
   };
-  handlePanning = (id, cx, cy, dx, dy) => {
-    // console.log("handlePanning", id, cx, cy, dx, dy);
+  handlePanning = (id, cx, cy, ox, oy) => {
+    // console.log("handlePanning", id, cx, cy, ox, oy);
     const { width = 0, colSize = 0, height = 0, rowSize = 0 } = this.gridSize;
 
-    const x = clamp(Math.floor(cx / colSize) + 1, 1, this.state.cols);
-    const y = clamp(Math.floor(cy / rowSize) + 1, 1, this.state.rows);
+    // top left corner
+    const x = clamp(Math.floor((cx - ox) / colSize) + 1, 1, this.state.cols);
+    const y = clamp(Math.floor((cy - oy) / rowSize) + 1, 1, this.state.rows);
+
+    // this needs to be changed to reposition whole cell by it's top left corner with offset around the center
 
     this.setState(prevState => {
       const shadow = prevState.shadowChildren;
@@ -187,12 +190,13 @@ class App extends React.Component {
       };
     });
   };
-  handlePanStop = (id, cx, cy, dx, dy) => {
-    console.log("handlePanStop", id, cx, cy, dx, dy);
+  handlePanStop = (id, cx, cy, ox, oy) => {
+    console.log("handlePanStop", id, cx, cy, ox, oy);
     const { width = 0, colSize = 0, height = 0, rowSize = 0 } = this.gridSize;
 
-    const x = clamp(Math.floor(cx / colSize) + 1, 1, this.state.cols);
-    const y = clamp(Math.floor(cy / rowSize) + 1, 1, this.state.rows);
+    // top left corner (c - o)
+    const x = clamp(Math.floor((cx - ox) / colSize) + 1, 1, this.state.cols);
+    const y = clamp(Math.floor((cy - oy) / rowSize) + 1, 1, this.state.rows);
 
     this.setState(prevState => {
       const index = findIndex(id, prevState.gridChildren);
@@ -205,22 +209,75 @@ class App extends React.Component {
       };
     });
   };
+
+
+
   handleResize = (id, handle, cx = 0, cy = 0) => {
     const { width = 0, colSize = 0, height = 0, rowSize = 0 } = this.gridSize;
-    const _x = clamp(Math.floor(cx / colSize) + 1, 1, this.state.cols);
-    const _y = clamp(Math.floor(cy / rowSize) + 1, 1, this.state.rows);
-    const shadow = this.state.shadowChildren;
-    if (shadow.length > 0) {
-      const {x, y, cols,rows} = shadow[0];
+    const halfColSize = colSize / 2;
+    const halfRowSize = rowSize / 2;
+    let _x,
+      _y,
+      _cols = 0,
+      _rows = 0,
+      colsOffset = 0,
+      rowsOffset = 0;
+    this.setState(prevState => {
+      const original = find(id, prevState.gridChildren);
+      const { x, y, cols, rows } = original;
       switch (handle) {
         case "right":
-          console.log("x", _x-x);
+          _x = clamp(
+            Math.floor((cx + colSize) / colSize) + 1,
+            1,
+            prevState.cols + 1
+          );
+
+          colsOffset = (_x - x)-1;
+          _cols = clamp(original.cols + colsOffset, 1, (prevState.cols - cols)+1);
+          console.log(colsOffset, original.cols + colsOffset, _cols)
+          return {
+            shadowChildren: [{ ...original, cols: _cols}]
+          };
+      }
+    });
+  };
+  handleResizeStop = (id, handle, cx = 0, cy = 0) => {
+    const { width = 0, colSize = 0, height = 0, rowSize = 0 } = this.gridSize;
+    const halfColSize = colSize / 2;
+    const halfRowSize = rowSize / 2;
+    let _x,
+      _y,
+      _cols = 0,
+      _rows = 0,
+      colsOffset = 0,
+      rowsOffset = 0;
+    this.setState(prevState => {
+      const index = findIndex(id, prevState.gridChildren);
+      const original = prevState.gridChildren[index];
+      const { x, y, cols, rows } = original;
+      const gridChildren = [...prevState.gridChildren];
+      switch (handle) {
+        case "right":
+          _x = clamp(
+            Math.floor((cx + colSize) / colSize) + 1,
+            1,
+            prevState.cols + 1
+          );
+
+          colsOffset = (_x - x)-1;
+          _cols = clamp(original.cols + colsOffset, 1, (prevState.cols - cols)+1);
+          gridChildren[index] = {
+            ...original,
+            cols: _cols
+          };
           break;
       }
-    }
-  };
-  handleResizeStop = (id, handle, dx = 0, dy = 0) => {
-    this.setState(_ => ({ shadowChildren: [] }));
+      return {
+        gridChildren,
+        shadowChildren: []
+      };
+    });
   };
 
   renderChildren = () => {
