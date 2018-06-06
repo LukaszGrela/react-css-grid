@@ -68,20 +68,20 @@ class ResizableDiv extends React.Component {
           className={"ResizableDiv_handle ResizableDiv_handle--top"}
         />
         <DragDiv
+          id={'bottom'}
+          direction={Hammer.DIRECTION_VERTICAL}
+          onPanStart={this.onPanStart}
+          onPanStop={this.onResizeStop}
+          className={"ResizableDiv_handle ResizableDiv_handle--bottom"}
+        />
+
+        <DragDiv
           id={'right'}
           direction={Hammer.DIRECTION_HORIZONTAL}
           onPanStart={this.onPanStart}
           onPanStop={this.onResizeStop}
           onPan={this.onResize}
           className={"ResizableDiv_handle ResizableDiv_handle--right"}
-        />
-
-        <DragDiv
-          id={'bottom'}
-          direction={Hammer.DIRECTION_VERTICAL}
-          onPanStart={this.onPanStart}
-          onPanStop={this.onResizeStop}
-          className={"ResizableDiv_handle ResizableDiv_handle--bottom"}
         />
         <DragDiv
           id={'left'}
