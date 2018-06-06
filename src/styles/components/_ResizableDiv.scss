@@ -6,44 +6,53 @@
   &--pan {
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%)
+    transform: translate(-50%,-50%);
+    cursor: move;
   }
   &--tl {
     left:0;
     top:0;
+    cursor: nw-resize;
   }
   &--tr {
     right:0;
     top:0;
+    cursor: ne-resize;
   }
   &--bl {
     left:0;
     bottom:0;
+    cursor: sw-resize;
   }
   &--br {
     right:0;
     bottom:0;
+    cursor: se-resize;
   }
   &--top {
     top:0;
     left:50%;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
+    cursor: n-resize;
   }
   
   &--bottom {
     left:50%;
     bottom:0;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
+    cursor: s-resize;
   }
   &--left {
     left:0;
     top:50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    cursor: w-resize;
   }
   
   &--right {
     right:0;
     top:50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    cursor: e-resize;
   }
 }
