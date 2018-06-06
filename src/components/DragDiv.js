@@ -29,26 +29,24 @@ class DragDiv extends React.Component {
 
   handlePan = ev => {
     const type = ev.type;
-    console.log(type);
     this.setState(
       _ => ({ panState: type === "panend" ? "" : type }),
       () => {
         const { onPan, onPanStart, onPanStop, id } = this.props;
         const {
-          deltaX: dx,
-          deltaY: dy,
-          center: { x: cx, y: cy }
+          center: { x: cx, y: cy },
+          target: { offsetLeft: ox, offsetTop: oy }
         } = ev;
         switch (type) {
           case "panstart":
             onPanStart(id);
             break;
           case "panmove":
-            onPan(id, cx, cy, dx, dy);
+            onPan(id, cx, cy, ox, oy);
             break;
           case "panend":
           case "pancancel":
-            onPanStop(id, cx, cy, dx, dy);
+            onPanStop(id, cx, cy, ox, oy);
             break;
         }
       }
