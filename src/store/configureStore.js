@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Store creation
-export default () => {
+const configureStore = () => {
     const store = createStore(
         combineReducers({
             data: dataReducer
@@ -15,3 +15,5 @@ export default () => {
     );
     return store;
 };
+
+export const store = configureStore();
